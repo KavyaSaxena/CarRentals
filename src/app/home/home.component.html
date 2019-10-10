@@ -1,0 +1,31 @@
+<div class="text-center">
+    <div class="text-center">
+          <h1><img src="/assets/rent-a-car.svg" class="image"/></h1>  
+        <div  class="lead">
+            <form [formGroup]="formObject" (ngSubmit)="onSucessSubmit(formObject)" class="form-group form-group-sm form-group-lg" nonvalidate>
+
+                <div class="input-group input-group-lg">
+                        <img src="/assets/placeholder.svg" style="width: 6%;margin-right: 10px"/>
+                    <select formControlName="locate" class="form-control" placeholder="Location">
+                            <option >
+                                    abc
+                            </option>
+                            <option >
+                                    abc
+                            </option>
+                    </select>
+
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                        <img src="/assets/schedule.svg" style="width: 6%;margin-right: 10px"/>
+                    <input type="date" formControlName="dateArrival" class="form-control" placeholder="Start date">
+                </div>    
+                <p style="color:red" [hidden]="hid">Please make a selection</p>
+                <button style="margin-top: 2%" class="btn btn-success">
+                    Search
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

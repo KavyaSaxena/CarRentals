@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+form{
+    margin-top: 7%;
+}
+.image {
+    display: inline;
+    height: 3em;
+    margin: 10px;
+  }
