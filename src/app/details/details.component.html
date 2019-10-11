@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-lg-10 offset-lg-1 col-md-12 text-center">
+        <form class="form-group" novalidate>
+            <div class="row">
+                    <select class="form-control col-lg-7 col-md-7 col-sm-12" placeholder="Location" [(ngModel)]="input_location" 
+                    (change)="refresh()" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let item of loc" [value]="item">
+                        {{item}}
+                    </option>
+                    
+                    </select>
+                    <input type="date" class="form-control col-lg-5 col-md-5 col-sm-12" placeholder="Start Date"
+                    [(ngModel)]="start_date" (change)="refresh()" [ngModelOptions]="{standalone: true}">
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-sm-10 col-md-10 text-center" style="margin-left: auto;margin-right:auto">
+       <form class="form-group" novalidate>
+            <div class="row">
+                <input type="text" class="fill" placeholder="Search" 
+                [(ngModel)]="inputSearch" (keyup)="filter()"
+                [ngModelOptions]="{standalone: true}" />
+            </div>
+            <div class="row">
+                <select class="fill" name="transmit" [(ngModel)]="transmit" (change)="filter()">
+                    <option *ngFor="let item of transmission" [value]="item">
+                        {{item}}
+                    </option>
+                    
+                </select>
+            </div>
+            
+            <div class="row">
+                <select class="fill" name="type_of_car" [(ngModel)]="type_of_car" (change)="filter()">
+                    <option *ngFor="let item of cars" [value]="item">
+                        {{item}}
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <select class="fill" name="fuel_type" [(ngModel)]="fuel_type" (change)="filter()">
+                    <option *ngFor="let item of fuel" [value]="item">
+                        {{item}}
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <select class="fill" name="sort" [(ngModel)]="sort" (change)="filter()">
+                    <option *ngFor="let item of sort_by" [value]="item">
+                        {{item}}
+                    </option>
+                </select>
+            </div>
+       </form> 
+    </div>
+
+    <div class="col-lg-10 col-sm-12 col-md-12 text-center" style="margin-bottom: 80px;">
+        <div class="col-lg-10 offset-lg-1 col-md-12 card" style="background:#7a7a7ac2 ; color: white"
+            *ngFor="let item of items | paginate: { itemsPerPage:4, currentPage: page}"
+            [class.bg-secondary]="item.selected">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <img class="" src="" alt="kav" width="100%">
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                            <h5 class="card-title">
+                              Kav
+                            </h5>
+                            <p class="card-text">
+                              <span> <img src="/assets/gear-box.svg" style="width: 6%;" /> trans</span>
+                              <span><img src="/assets/car.svg" style="width: 6%; margin-left: 5px;" /> car_Type</span>
+                              <span> <img src="/assets/gas-station.svg" style="width: 6%;margin-left: 5px;" /> fuel_Type</span>
+                              <span><img src="/assets/seat.svg" style="width: 6%;margin-left: 5px;" /> seats</span>
+                            </p>
+                            <div class="row">
+                                    <div class="col-6">
+                                    <button style="margin-left: 5px;" *ngIf="checkAvailability(item)" href="#" class="btn btn-primary btn-block "><i class="fas fa-money-bill-wave"></i>
+                                      Pay</button>
+                                    <span *ngIf="!checkAvailability(item)" class="btn btn-danger btn-block "><i class="fa fa-times-circle"></i>
+                                      Not Available</span>
+                                    </div>
+                                    <div class="col-6">
+                                    <button style="margin-left: 5px;" [disabled]="!checkAvailability(item)"
+                                      (click)="item.selected = !item.selected"
+                                      class="btn btn-secondary btn-block">
+                                      {{item.selected ? 'Clear' : 'Select'}}</button>
+                                  </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-12" style="margin:auto">
+                                        <h3 class="d-flex justify-content-center text-white">₹{{item.price}}</h3>
+                                      </div>
+                </div>
+            </div> 
+        </div>
+
+
+    </div>
+</div>
+<div class="row" >
+    <div class="col-lg-10 col-md-12 text-center">
+         <div class="lead" style="margin-bottom : 35px;">
+            <div class="d-flex justify-content-center">
+                <pagination-controls (pageChange)="page = $event" maxSize="6" directionLinks="true" autoHide="true"
+                    responsive="true" previousLabel="Prev." nextLabel="Next" screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
