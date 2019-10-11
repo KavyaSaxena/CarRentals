@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiProviderService } from '../api-provider.service';
+import { FiltersService } from '../filters/filters.service';
 
 @Component({
   selector: 'app-details',
@@ -11,21 +12,22 @@ export class DetailsComponent implements OnInit {
    // Original extracted data
    cars_data: any; 
    loc:any;
-   
+   inputSearch="";
   input_location:any
   start_date:any
   transmission= ['Transmission','Manual', 'Automatic']
   transmit= this.transmission[0];
-  cars=['Cars', 'Hatchback','SUV,Mini SUV', 'Sedan']
+  cars=['Cars', 'Hatchback','SUV','Mini SUV', 'Sedan']
   type_of_car= this.cars[0]
   fuel=['Fuel','Petrol','Diesel']
   fuel_type= this.fuel[0]
   sort_by= ['Price: low to high','Price: high to low']
-  sort = this.sort_by[0]
+  sorts = this.sort_by[0]
   items: any[] = [];
   page = 1;
   
-  constructor(private router: Router, private route: ActivatedRoute, private api: ApiProviderService) {
+  constructor(private router: Router, private route: ActivatedRoute, private api: ApiProviderService,
+    private filters:FiltersService) {
 
     this.api.getLocation().subscribe(res => this.loc = res);
 
@@ -52,8 +54,23 @@ export class DetailsComponent implements OnInit {
       //intially make selected as false;
       item.selected = false;
     }
+    this.filter()
   }
-  filter(){
+  filter() {
 
+    this.items = this.filters.filter(this.cars_data, this.inputSearch, this.transmit, this.type_of_car,
+       this.fuel_type, this.items,this.input_location,this.sorts,this.start_date);
+ console.log(this.items);
+  }
+
+  //service for sorting the data
+  sort() {
+    this.items = this.filters.sort(this.items, this.sort_by, this.cars_data,this.start_date)
+  }
+
+  
+  checkAvailability(item) {
+    return this.filters.checkAvailability(item,this.start_date);
   }
 }
+

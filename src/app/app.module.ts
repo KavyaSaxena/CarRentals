@@ -8,6 +8,7 @@ import { DetailsComponent } from './details/details.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiProviderService } from './api-provider.service';
+import { FiltersService } from './filters/filters.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { ApiProviderService } from './api-provider.service';
       [
         {
           path:'',
-          component:DetailsComponent
+          component:HomeComponent
         },
         {
           path: 'home',
@@ -36,7 +37,7 @@ import { ApiProviderService } from './api-provider.service';
       ], { useHash: false}
     )
   ],
-  providers: [ApiProviderService],
+  providers: [ApiProviderService,FiltersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
