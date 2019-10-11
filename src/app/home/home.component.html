@@ -1,24 +1,22 @@
 <div class="text-center">
     <div class="text-center">
-          <h1><img src="/assets/rent-a-car.svg" class="image"/></h1>  
+          <h1><img src="/assets/car-rental.svg" class="image"/></h1>  
         <div  class="lead">
             <form [formGroup]="formObject" (ngSubmit)="onSucessSubmit(formObject)" class="form-group form-group-sm form-group-lg" nonvalidate>
 
                 <div class="input-group input-group-lg">
-                        <img src="/assets/placeholder.svg" style="width: 6%;margin-right: 10px"/>
+                        <img src="/assets/locate.svg" style="width: 5%;margin-right: 10px"/>
                     <select formControlName="locate" class="form-control" placeholder="Location">
-                            <option >
-                                    abc
+                            <option *ngFor="let item of locations" [value]="item">
+                                    {{item}}
                             </option>
-                            <option >
-                                    abc
-                            </option>
+                            
                     </select>
 
                 </div>
                 <br>
                 <div class="input-group input-group-lg">
-                        <img src="/assets/schedule.svg" style="width: 6%;margin-right: 10px"/>
+                        <img src="/assets/calendar.svg" style="width: 5%;margin-right: 10px"/>
                     <input type="date" formControlName="dateArrival" class="form-control" placeholder="Start date">
                 </div>    
                 <p style="color:red" [hidden]="hid">Please make a selection</p>
